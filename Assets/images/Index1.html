@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light/Dark Mode Toggle</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Light/Dark Mode Toggle</h1>
+        <button id="theme-toggle">Switch to Dark Mode</button>
+          
+      
+        
+
+
+    </div>
+   
+   
+   
+   <script >
+   
+ // script.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Check for saved user preference, if any, on load of the website
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    body.classList.add(`${savedTheme}-mode`);
+    themeToggleBtn.textContent = savedTheme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+    themeToggleBtn.classList.add(`${savedTheme}-mode`);
+
+    // Listen for a click on the button
+    themeToggleBtn.addEventListener('click', () => {
+        if (body.classList.contains('light-mode')) {
+            body.classList.replace('light-mode', 'dark-mode');
+            themeToggleBtn.textContent = 'Switch to Light Mode';
+            themeToggleBtn.classList.replace('light-mode', 'dark-mode');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.classList.replace('dark-mode', 'light-mode');
+            themeToggleBtn.textContent = 'Switch to Dark Mode';
+            themeToggleBtn.classList.replace('dark-mode', 'light-mode');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+});
+
+
+    </script>
+</body>
+</html>

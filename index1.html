@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Example</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <input type="text" id="userInput" class="mt-4 p-2 border border-gray-300 rounded w-full" placeholder="Enter something">
+    <button id="popupLink" class="mt-4 px-4 py-2 bg-green-500 text-white rounded">Submit</button>
+    <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded shadow-lg">
+            <button class="close text-right text-gray-500">&times;</button>
+            <p id="popupMessage" class="mt-4"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var popupLink = document.getElementById('popupLink');
+            var popup = document.getElementById('popup');
+            var closeBtn = document.querySelector('.close');
+            var popupMessage = document.getElementById('popupMessage');
+            var userInput = document.getElementById('userInput');
+
+            popupLink.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default link behavior
+
+                popupMessage.textContent = 'Loading...';
+                popupMessage.classList.remove('text-red-500', 'text-green-500');
+                popupMessage.classList.add('text-gray-500');
+
+                popup.classList.remove('hidden');
+
+                // Simulate a delay (e.g., for an async operation) before updating the message
+                setTimeout(function() {
+                    if (userInput.value.trim() !== '') {
+                        popupMessage.textContent = ' Name Successful!';
+                        popupMessage.classList.remove('text-red-500');
+                        popupMessage.classList.add('text-green-500');
+                    } else {
+                        popupMessage.textContent = 'Please Enter Your Name.';
+                        popupMessage.classList.remove('text-green-500');
+                        popupMessage.classList.add('text-red-500');
+                    }
+                }, 1000); // Adjust delay as needed
+            });
+
+            closeBtn.addEventListener('click', function() {
+                popup.classList.add('hidden');
+            });
+
+            // Close the popup when clicking outside of it
+            window.addEventListener('click', function(event) {
+                if (event.target === popup) {
+                    popup.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
